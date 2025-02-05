@@ -72,7 +72,7 @@ export default function Modal(props: ModalProps) {
       />
 
       <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-        <div className="flex min-h-full items-center justify-center p-4 text-center">
+        <div className="flex justify-center p-4 text-center">
           <DialogPanel
             transition
             className="relative w-full max-w-lg transform overflow-hidden rounded-lg bg-white dark:bg-gray-800 text-left shadow-xl transition-all data-closed:translate-y-4 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in sm:my-8 sm:w-full sm:max-w-lg data-closed:sm:translate-y-0 data-closed:sm:scale-95"
@@ -94,14 +94,17 @@ export default function Modal(props: ModalProps) {
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                 />
-                <Cleave
-                  options={{ numeral: true, numeralThousandsGroupStyle: "thousand", numeralDecimalScale: 0, delimiter: ".", numeralDecimalMark: "," }}
-                  title="Harga"
-                  id="price"
-                  className="mt-1 w-full text-end text-slate-900 dark:text-white rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 dark:focus:border-indigo-500 focus:ring-indigo-500 dark:focus:ring-indigo-500 dark:bg-gray-700 py-2 px-3"
-                  value={price}
-                  onChange={(e) => setPrice(parseInt(e.target.rawValue))}
-                />
+                <div className="dark:text-white">
+                  <label htmlFor="price">Harga</label>
+                  <Cleave
+                    options={{ numeral: true, numeralThousandsGroupStyle: "thousand", numeralDecimalScale: 0, delimiter: ".", numeralDecimalMark: "," }}
+                    title="Harga"
+                    id="price"
+                    className="mt-1 w-full text-end rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 dark:focus:border-indigo-500 focus:ring-indigo-500 dark:focus:ring-indigo-500 dark:bg-gray-700 py-2 px-3"
+                    value={price}
+                    onChange={(e) => setPrice(parseInt(e.target.rawValue))}
+                  />
+                </div>
               </form>
             </div>
             <div className="bg-gray-50 dark:bg-gray-700 py-3 flex flex-row-reverse px-6">

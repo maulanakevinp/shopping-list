@@ -9,6 +9,7 @@ import {
 import TextInput from "./TextInput";
 import { useEffect, useRef, useState } from "react";
 import { ItemType } from "../Types/ItemType";
+import Cleave from "cleave.js/react";
 
 type ModalProps = {
   open: boolean;
@@ -36,7 +37,7 @@ export default function Modal(props: ModalProps) {
           setTitle("");
           setPrice(0);
         }
-      }, 500);
+      }, 100);
     } else {
       setTitle("");
       setPrice(0);
@@ -93,12 +94,13 @@ export default function Modal(props: ModalProps) {
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                 />
-                <TextInput
+                <Cleave
+                  options={{ numeral: true, numeralThousandsGroupStyle: "thousand", numeralDecimalScale: 0, delimiter: ".", numeralDecimalMark: "," }}
                   title="Harga"
                   id="price"
-                  className="mt-2"
+                  className="mt-1 w-full text-end text-slate-900 dark:text-white rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 dark:focus:border-indigo-500 focus:ring-indigo-500 dark:focus:ring-indigo-500 dark:bg-gray-700 py-2 px-3"
                   value={price}
-                  onChange={(e) => setPrice(parseInt(e.target.value))}
+                  onChange={(e) => setPrice(parseInt(e.target.rawValue))}
                 />
               </form>
             </div>

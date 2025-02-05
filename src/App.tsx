@@ -74,17 +74,11 @@ function App() {
   return (
     <div className="dark:bg-gray-900 bg-gray-100 dark:text-white text-black h-screen">
       <div className="max-w-lg mx-auto p-5">
-        <h1 className="text-2xl font-bold uppercase text-center">
+        <h1 className="text-xl font-bold uppercase text-center">
           Kalkulator Daftar Belanja
         </h1>
         <div className="mt-5">
-          <p className="text-lg font-semibold text-end">
-            Total:{" "}
-            {Intl.NumberFormat("id-ID", { minimumFractionDigits: 0 }).format(
-              total
-            )}
-          </p>
-          <ul className="mt-5">
+          <ul className="">
             {items.map((item: ItemType, key) => (
               <li key={key} className="flex justify-between py-2 border-b">
                 <div className="flex items-center">
@@ -130,6 +124,12 @@ function App() {
               </li>
             ))}
           </ul>
+          <p className="text-lg font-semibold text-end">
+            Total:{" "}
+            {Intl.NumberFormat("id-ID", { minimumFractionDigits: 0 }).format(
+              total
+            )}
+          </p>
         </div>
       </div>
       <button

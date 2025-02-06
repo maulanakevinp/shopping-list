@@ -45,7 +45,8 @@ export default function Modal(props: ModalProps) {
     }
   }, [open, isEdit, editIndex, items]);
 
-  function handleSubmit() {
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
     const updatedItems = isEdit
       ? items.map((item, index) =>
           index === editIndex ? { ...item, name: title, price } : item
@@ -62,6 +63,14 @@ export default function Modal(props: ModalProps) {
     setItems(updatedItems);
     localStorage.setItem("items", JSON.stringify(updatedItems));
     setOpen(false);
+  }
+
+  function handleChangePrice(event: React.ChangeEvent<HTMLInputElement>) {
+    if (event.target.value === "") {
+      setPrice(0);
+    } else {
+      setPrice(parseInt(event.target.value.replace(/[^0-9]/g, "")));
+    }
   }
 
   return (
@@ -84,7 +93,7 @@ export default function Modal(props: ModalProps) {
               >
                 {isEdit ? "Ubah" : "Tambah"} Item
               </DialogTitle>
-              <form className="mt-2">
+              <form className="mt-2" onSubmit={handleSubmit}>
                 <input type="hidden" name="id" />
                 <TextInput
                   ref={nameRef}
@@ -102,36 +111,35 @@ export default function Modal(props: ModalProps) {
                     id="price"
                     className="mt-1 w-full text-end rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 dark:focus:border-indigo-500 focus:ring-indigo-500 dark:focus:ring-indigo-500 dark:bg-gray-700 py-2 px-3"
                     value={price}
-                    onChange={(e) => setPrice(parseInt(e.target.rawValue))}
+                    onChange={(e) => handleChangePrice(e)}
                   />
                 </div>
+                <div className="flex flex-row-reverse mt-5">
+                  <button
+                    type="submit"
+                    className="inline-flex justify-center rounded-md bg-blue-600 dark:bg-blue-500 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-blue-500 dark:hover:bg-blue-400 ml-3 w-auto cursor-pointer"
+                  >
+                    {isEdit ? "Ubah" : "Tambah"} Item
+                  </button>
+                  {isEdit && (
+                    <button
+                      type="button"
+                      onClick={handleRemoveItem}
+                      className="inline-flex justify-center rounded-md bg-red-600 dark:bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-red-500 dark:hover:bg-red-400 ml-3 w-auto cursor-pointer"
+                    >
+                      Hapus Item
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    data-autofocus
+                    onClick={() => setOpen(false)}
+                    className="inline-flex justify-center rounded-md bg-white dark:bg-gray-700 px-3 py-2 text-sm font-semibold text-gray-900 dark:text-white ring-1 shadow-xs ring-gray-300 dark:ring-gray-600 ring-inset hover:bg-gray-50 dark:hover:bg-gray-600 mt-0 w-auto cursor-pointer"
+                  >
+                    Cancel
+                  </button>
+                </div>
               </form>
-            </div>
-            <div className="bg-gray-50 dark:bg-gray-700 py-3 flex flex-row-reverse px-6">
-              <button
-                type="button"
-                onClick={handleSubmit}
-                className="inline-flex justify-center rounded-md bg-blue-600 dark:bg-blue-500 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-blue-500 dark:hover:bg-blue-400 ml-3 w-auto cursor-pointer"
-              >
-                {isEdit ? "Ubah" : "Tambah"} Item
-              </button>
-              {isEdit && (
-                <button
-                  type="button"
-                  onClick={handleRemoveItem}
-                  className="inline-flex justify-center rounded-md bg-red-600 dark:bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-red-500 dark:hover:bg-red-400 ml-3 w-auto cursor-pointer"
-                >
-                  Hapus Item
-                </button>
-              )}
-              <button
-                type="button"
-                data-autofocus
-                onClick={() => setOpen(false)}
-                className="inline-flex justify-center rounded-md bg-white dark:bg-gray-700 px-3 py-2 text-sm font-semibold text-gray-900 dark:text-white ring-1 shadow-xs ring-gray-300 dark:ring-gray-600 ring-inset hover:bg-gray-50 dark:hover:bg-gray-600 mt-0 w-auto cursor-pointer"
-              >
-                Cancel
-              </button>
             </div>
           </DialogPanel>
         </div>

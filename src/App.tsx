@@ -23,6 +23,18 @@ function App() {
     document.documentElement.classList.toggle("dark", isDarkMode);
   }, [isDarkMode]);
 
+  useEffect(() => {
+    const handleKeyUp = (event: KeyboardEvent) => {
+      if (event.key === "+") {
+        setOpenModal(true);
+        setIsEdit(false);
+        setEditIndex(null);
+      }
+    };
+    window.addEventListener("keyup", handleKeyUp);
+    return () => window.removeEventListener("keyup", handleKeyUp);
+  }, []);
+
   function handleDarkMode() {
     const darkMode = !isDarkMode;
     setIsDarkMode(darkMode);
@@ -159,3 +171,4 @@ function App() {
 }
 
 export default App;
+

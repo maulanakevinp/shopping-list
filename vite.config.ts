@@ -5,6 +5,7 @@ import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vite.dev/config/
 export default defineConfig({
+  // base: '/shopping-list/',
   plugins: [
     react(),
     tailwindcss(),
@@ -17,11 +18,13 @@ export default defineConfig({
         theme_color: '#ffffff',
         icons: [
           {
+            // src: '/shopping-list/128x128.png',
             src: '/128x128.png',
             sizes: '128x128',
             type: 'image/png',
           },
           {
+            // src: '/shopping-list/512x512.png',
             src: '/512x512.png',
             sizes: '512x512',
             type: 'image/png',

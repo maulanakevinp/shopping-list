@@ -84,7 +84,7 @@ function App() {
   }
 
   return (
-    <div className="dark:bg-gray-900 bg-gray-100 dark:text-white text-black h-screen">
+    <div className="mb-40">
       <div className="max-w-lg mx-auto p-5">
         <h1 className="text-xl font-bold uppercase text-center">
           Kalkulator Daftar Belanja
